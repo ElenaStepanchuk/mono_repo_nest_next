@@ -19,10 +19,13 @@ import { IResponse } from 'src/types/Iresponse';
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
-  @Post()
+  @Post('list/:id')
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() createTaskDto: CreateTaskDto): Promise<IResponse<Task>> {
-    return this.tasksService.create(createTaskDto);
+  async create(
+    @Param('id') id: number,
+    @Body() createTaskDto: CreateTaskDto,
+  ): Promise<IResponse<Task>> {
+    return this.tasksService.create(+id, createTaskDto);
   }
 
   @Get()

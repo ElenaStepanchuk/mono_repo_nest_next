@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  padding: 10px;
+  background: #ffffff;
+}
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  color: #000000;
+}
+.modal_container {
+  padding: 10px;
+}
