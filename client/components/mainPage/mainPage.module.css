@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  background: #ffffff;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.card_list {
+  display: flex;
+}
+
+.card_item:not(:last-child) {
+  margin-right: 1.5rem;
+}
+.card_title {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  color: #000000;
+  margin: auto 0;
+}
+.value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+  width: 40px;
+  margin: auto 0 auto auto;
+}

@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksModule } from './tasks/tasks.module';
+import { ListsModule } from './lists/lists.module';
 
 @Global()
 @Module({
@@ -27,6 +28,7 @@ import { TasksModule } from './tasks/tasks.module';
       inject: [ConfigService],
     }),
     TasksModule,
+    ListsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

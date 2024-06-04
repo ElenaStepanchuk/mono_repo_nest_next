@@ -11,10 +11,12 @@ import { IResponse } from 'src/types/Iresponse';
 import { Task } from './entities/task.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ListsService } from 'src/lists/lists.service';
 
 @Injectable()
 export class TasksService {
   constructor(
+    private listService: ListsService,
     @InjectRepository(Task) private taskRepository: Repository<Task>,
   ) {
     this.logger = new Logger('CHANGING IN DATABASE');
@@ -23,9 +25,12 @@ export class TasksService {
   logger: Logger;
 
   public async create(
+    id: number,
     createTaskDto: CreateTaskDto,
   ): Promise<IResponse<Task> | null> {
     try {
+      const list = await this.listService.findOneList(id);
+      if (!list) throw new BadRequestException('List not found!');
       const existTask = await this.taskRepository.findOne({
         where: {
           task_name: createTaskDto.task_name,
@@ -35,6 +40,7 @@ export class TasksService {
       if (existTask) throw new BadRequestException('This task already exist');
 
       const newTask = await this.taskRepository.save({
+        list: id,
         ...createTaskDto,
       });
 
@@ -65,7 +71,7 @@ export class TasksService {
       return {
         status_code: HttpStatus.OK,
         detail: taskList,
-        result: `We get all tasks list`,
+        result: `We get all tasks.`,
       };
     } catch (error) {
       throw new HttpException(
@@ -145,7 +151,7 @@ export class TasksService {
       throw new HttpException(
         {
           status_code: HttpStatus.FORBIDDEN,
-          error: 'Task didn`t update',
+          error: 'Task didn`t delete!',
         },
         HttpStatus.FORBIDDEN,
         {

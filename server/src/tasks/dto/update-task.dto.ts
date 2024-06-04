@@ -1,9 +1,5 @@
-// import { PartialType } from '@nestjs/mapped-types';
-// import { CreateTaskDto } from './create-task.dto';
-
-// export class UpdateTaskDto extends PartialType(CreateTaskDto) {}
-
 import { IsString, IsEmpty } from 'class-validator';
+import { List } from 'src/lists/entities/list.entity';
 
 export class UpdateTaskDto {
   @IsEmpty()
@@ -13,4 +9,12 @@ export class UpdateTaskDto {
   @IsEmpty()
   @IsString()
   description: string;
+
+  deadline: Date;
+
+  priority: 'Medium' | 'Low' | 'High';
+
+  @IsEmpty()
+  @IsString()
+  list: List;
 }

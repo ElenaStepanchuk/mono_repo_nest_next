@@ -1,4 +1,5 @@
 import { IsEmpty, MaxLength, MinLength, IsString } from 'class-validator';
+import { List } from 'src/lists/entities/list.entity';
 
 export class CreateTaskDto {
   @IsEmpty()
@@ -10,4 +11,10 @@ export class CreateTaskDto {
   @IsEmpty()
   @IsString()
   description: string;
+
+  deadline: Date;
+
+  priority: 'Medium' | 'Low' | 'High';
+
+  list: List;
 }
